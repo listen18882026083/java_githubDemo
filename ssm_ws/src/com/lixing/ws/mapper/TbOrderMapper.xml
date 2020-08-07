@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lixing.ws.mapper.TbOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.lixing.ws.pojo.TbOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="orderNumber" property="ordernumber" jdbcType="VARCHAR" />
+    <result column="orderStatus" property="orderstatus" jdbcType="VARCHAR" />
+    <result column="productCount" property="productcount" jdbcType="INTEGER" />
+    <result column="productAmountTotal" property="productamounttotal" jdbcType="DECIMAL" />
+    <result column="orderAmountTotal" property="orderamounttotal" jdbcType="DECIMAL" />
+    <result column="logisticsFee" property="logisticsfee" jdbcType="DECIMAL" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="orderlogisticsId" property="orderlogisticsid" jdbcType="VARCHAR" />
+    <result column="customerId" property="customerid" jdbcType="INTEGER" />
+    <result column="paymentPic" property="paymentpic" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="orderRemark" property="orderremark" jdbcType="VARCHAR" />
+    <result column="orderConsignee" property="orderconsignee" jdbcType="VARCHAR" />
+    <result column="newDate" property="newdate" jdbcType="TIMESTAMP" />
+    <result column="paymentTime" property="paymenttime" jdbcType="TIMESTAMP" />
+    <result column="deliveryTime" property="deliverytime" jdbcType="TIMESTAMP" />
+    <result column="paymentMethod" property="paymentmethod" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, orderNumber, orderStatus, productCount, productAmountTotal, orderAmountTotal, 
+    logisticsFee, address, orderlogisticsId, customerId, paymentPic, phone, remark, orderRemark, 
+    orderConsignee, newDate, paymentTime, deliveryTime, paymentMethod
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lixing.ws.pojo.TbOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lixing.ws.pojo.TbOrderExample" >
+    delete from tb_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lixing.ws.pojo.TbOrder" >
+    insert into tb_order (id, orderNumber, orderStatus, 
+      productCount, productAmountTotal, orderAmountTotal, 
+      logisticsFee, address, orderlogisticsId, 
+      customerId, paymentPic, phone, 
+      remark, orderRemark, orderConsignee, 
+      newDate, paymentTime, deliveryTime, 
+      paymentMethod)
+    values (#{id,jdbcType=INTEGER}, #{ordernumber,jdbcType=VARCHAR}, #{orderstatus,jdbcType=VARCHAR}, 
+      #{productcount,jdbcType=INTEGER}, #{productamounttotal,jdbcType=DECIMAL}, #{orderamounttotal,jdbcType=DECIMAL}, 
+      #{logisticsfee,jdbcType=DECIMAL}, #{address,jdbcType=VARCHAR}, #{orderlogisticsid,jdbcType=VARCHAR}, 
+      #{customerid,jdbcType=INTEGER}, #{paymentpic,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{orderremark,jdbcType=VARCHAR}, #{orderconsignee,jdbcType=VARCHAR}, 
+      #{newdate,jdbcType=TIMESTAMP}, #{paymenttime,jdbcType=TIMESTAMP}, #{deliverytime,jdbcType=TIMESTAMP}, 
+      #{paymentmethod,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lixing.ws.pojo.TbOrder" >
+  <selectKey keyProperty="id" resultType="Integer" order="AFTER">
+  	 select LAST_INSERT_ID()
+  	</selectKey>
+    insert into tb_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ordernumber != null" >
+        orderNumber,
+      </if>
+      <if test="orderstatus != null" >
+        orderStatus,
+      </if>
+      <if test="productcount != null" >
+        productCount,
+      </if>
+      <if test="productamounttotal != null" >
+        productAmountTotal,
+      </if>
+      <if test="orderamounttotal != null" >
+        orderAmountTotal,
+      </if>
+      <if test="logisticsfee != null" >
+        logisticsFee,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="orderlogisticsid != null" >
+        orderlogisticsId,
+      </if>
+      <if test="customerid != null" >
+        customerId,
+      </if>
+      <if test="paymentpic != null" >
+        paymentPic,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="orderremark != null" >
+        orderRemark,
+      </if>
+      <if test="orderconsignee != null" >
+        orderConsignee,
+      </if>
+      <if test="newdate != null" >
+        newDate,
+      </if>
+      <if test="paymenttime != null" >
+        paymentTime,
+      </if>
+      <if test="deliverytime != null" >
+        deliveryTime,
+      </if>
+      <if test="paymentmethod != null" >
+        paymentMethod,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ordernumber != null" >
+        #{ordernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderstatus != null" >
+        #{orderstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="productcount != null" >
+        #{productcount,jdbcType=INTEGER},
+      </if>
+      <if test="productamounttotal != null" >
+        #{productamounttotal,jdbcType=DECIMAL},
+      </if>
+      <if test="orderamounttotal != null" >
+        #{orderamounttotal,jdbcType=DECIMAL},
+      </if>
+      <if test="logisticsfee != null" >
+        #{logisticsfee,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="orderlogisticsid != null" >
+        #{orderlogisticsid,jdbcType=VARCHAR},
+      </if>
+      <if test="customerid != null" >
+        #{customerid,jdbcType=INTEGER},
+      </if>
+      <if test="paymentpic != null" >
+        #{paymentpic,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderremark != null" >
+        #{orderremark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderconsignee != null" >
+        #{orderconsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="newdate != null" >
+        #{newdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymenttime != null" >
+        #{paymenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliverytime != null" >
+        #{deliverytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentmethod != null" >
+        #{paymentmethod,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lixing.ws.pojo.TbOrderExample" resultType="java.lang.Integer" >
+    select count(*) from tb_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordernumber != null" >
+        orderNumber = #{record.ordernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderstatus != null" >
+        orderStatus = #{record.orderstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productcount != null" >
+        productCount = #{record.productcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.productamounttotal != null" >
+        productAmountTotal = #{record.productamounttotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderamounttotal != null" >
+        orderAmountTotal = #{record.orderamounttotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.logisticsfee != null" >
+        logisticsFee = #{record.logisticsfee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderlogisticsid != null" >
+        orderlogisticsId = #{record.orderlogisticsid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerid != null" >
+        customerId = #{record.customerid,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentpic != null" >
+        paymentPic = #{record.paymentpic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderremark != null" >
+        orderRemark = #{record.orderremark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderconsignee != null" >
+        orderConsignee = #{record.orderconsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newdate != null" >
+        newDate = #{record.newdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.paymenttime != null" >
+        paymentTime = #{record.paymenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deliverytime != null" >
+        deliveryTime = #{record.deliverytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.paymentmethod != null" >
+        paymentMethod = #{record.paymentmethod,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_order
+    set id = #{record.id,jdbcType=INTEGER},
+      orderNumber = #{record.ordernumber,jdbcType=VARCHAR},
+      orderStatus = #{record.orderstatus,jdbcType=VARCHAR},
+      productCount = #{record.productcount,jdbcType=INTEGER},
+      productAmountTotal = #{record.productamounttotal,jdbcType=DECIMAL},
+      orderAmountTotal = #{record.orderamounttotal,jdbcType=DECIMAL},
+      logisticsFee = #{record.logisticsfee,jdbcType=DECIMAL},
+      address = #{record.address,jdbcType=VARCHAR},
+      orderlogisticsId = #{record.orderlogisticsid,jdbcType=VARCHAR},
+      customerId = #{record.customerid,jdbcType=INTEGER},
+      paymentPic = #{record.paymentpic,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      orderRemark = #{record.orderremark,jdbcType=VARCHAR},
+      orderConsignee = #{record.orderconsignee,jdbcType=VARCHAR},
+      newDate = #{record.newdate,jdbcType=TIMESTAMP},
+      paymentTime = #{record.paymenttime,jdbcType=TIMESTAMP},
+      deliveryTime = #{record.deliverytime,jdbcType=TIMESTAMP},
+      paymentMethod = #{record.paymentmethod,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lixing.ws.pojo.TbOrder" >
+    update tb_order
+    <set >
+      <if test="ordernumber != null" >
+        orderNumber = #{ordernumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderstatus != null" >
+        orderStatus = #{orderstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="productcount != null" >
+        productCount = #{productcount,jdbcType=INTEGER},
+      </if>
+      <if test="productamounttotal != null" >
+        productAmountTotal = #{productamounttotal,jdbcType=DECIMAL},
+      </if>
+      <if test="orderamounttotal != null" >
+        orderAmountTotal = #{orderamounttotal,jdbcType=DECIMAL},
+      </if>
+      <if test="logisticsfee != null" >
+        logisticsFee = #{logisticsfee,jdbcType=DECIMAL},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="orderlogisticsid != null" >
+        orderlogisticsId = #{orderlogisticsid,jdbcType=VARCHAR},
+      </if>
+      <if test="customerid != null" >
+        customerId = #{customerid,jdbcType=INTEGER},
+      </if>
+      <if test="paymentpic != null" >
+        paymentPic = #{paymentpic,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderremark != null" >
+        orderRemark = #{orderremark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderconsignee != null" >
+        orderConsignee = #{orderconsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="newdate != null" >
+        newDate = #{newdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymenttime != null" >
+        paymentTime = #{paymenttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliverytime != null" >
+        deliveryTime = #{deliverytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentmethod != null" >
+        paymentMethod = #{paymentmethod,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lixing.ws.pojo.TbOrder" >
+    update tb_order
+    set orderNumber = #{ordernumber,jdbcType=VARCHAR},
+      orderStatus = #{orderstatus,jdbcType=VARCHAR},
+      productCount = #{productcount,jdbcType=INTEGER},
+      productAmountTotal = #{productamounttotal,jdbcType=DECIMAL},
+      orderAmountTotal = #{orderamounttotal,jdbcType=DECIMAL},
+      logisticsFee = #{logisticsfee,jdbcType=DECIMAL},
+      address = #{address,jdbcType=VARCHAR},
+      orderlogisticsId = #{orderlogisticsid,jdbcType=VARCHAR},
+      customerId = #{customerid,jdbcType=INTEGER},
+      paymentPic = #{paymentpic,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      orderRemark = #{orderremark,jdbcType=VARCHAR},
+      orderConsignee = #{orderconsignee,jdbcType=VARCHAR},
+      newDate = #{newdate,jdbcType=TIMESTAMP},
+      paymentTime = #{paymenttime,jdbcType=TIMESTAMP},
+      deliveryTime = #{deliverytime,jdbcType=TIMESTAMP},
+      paymentMethod = #{paymentmethod,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+    <!-- 手动添加语句 -->
+  <select id="queryOrderList" resultMap="BaseResultMap" parameterType="com.lixing.ws.pojo.TbOrderExample">
+	   select orderNumber,orderStatus,
+		productCount,orderAmountTotal,orderlogisticsId, 
+		c.`name` as remark,o.phone 
+		from  tb_order o
+		LEFT JOIN tb_customer c 
+		ON  o.customerId=c.id
+	  <if test="_parameter != null" >
+	      <include refid="Example_Where_Clause" />
+	   </if>
+	   order by o.id desc
+	  limit #{page},#{limit}
+  </select>
+   
+  
+   <select id="queryOrderByCode" resultMap="BaseResultMap" parameterType="String" >
+   	select * from tb_order where orderNumber = #{ordernumber}
+   </select>
+  <!-- 列表集合查询，带检索 -->
+  <select id="queryOrderListByMap" parameterType="map" resultMap="BaseResultMap">
+  	   select orderNumber,orderStatus,
+		productCount,orderAmountTotal,orderlogisticsId, 
+		c.`name` as remark,o.phone, orderStatus,o.id
+		from  tb_order o
+		LEFT JOIN tb_customer c 
+		ON  o.customerId=c.id
+		where 1=1
+		<if test="params.cusmotername !=null and params.cusmotername !='' ">
+			and c.name=  '${params.cusmotername}'
+		</if>
+		<if test="params.logisticsid !=null and params.logisticsid !='' ">
+			and o.orderlogisticsId  like  '%${params.logisticsid}%'
+		</if>
+		<if test="params.orderstatus !=null and params.orderstatus !='' ">
+			and o.orderStatus=  '${params.orderstatus}'
+		</if>
+		  order by o.id desc
+	  limit ${params.page},${params.limit}
+  </select>
+  
+   <select id="queryOrderCountByMap"  parameterType="map" resultType="java.lang.Integer">
+   select count(*) from  tb_order o
+		LEFT JOIN tb_customer c 
+		ON  o.customerId=c.id
+		where 1=1
+		<if test="params.cusmotername !=null and params.cusmotername !='' ">
+			and c.name =  '${params.cusmotername}'
+		</if>
+		<if test="params.logisticsid !=null and params.logisticsid !='' ">
+			and o.orderlogisticsId like  '%${params.logisticsid}%'
+		</if>
+		<if test="params.orderstatus !=null and params.orderstatus !='' ">
+			and o.orderStatus =  '${params.orderstatus}'
+		</if>
+   </select>
+   
+   <select id="monthStatis" resultType="map">
+   	select MONTH(paymentTime) as months ,sum(orderAmountTotal) as price from  tb_order
+	where orderStatus in('已发货','已签收','已付款','交易成功')
+	AND DATE_FORMAT(paymentTime,'%y')=DATE_FORMAT(CURDATE(),'%y')
+	GROUP BY MONTH(paymentTime)   	
+   </select>
+   
+   <select id="quarterStatis" resultType="map">
+   select QUARTER(paymentTime) as quarter, sum(orderAmountTotal) as price FROM tb_order
+where orderStatus in('已发货','已签收','已付款','交易成功')
+AND DATE_FORMAT(paymentTime,'%y')=DATE_FORMAT(CURDATE(),'%y')
+GROUP BY  QUARTER(paymentTime)
+order by QUARTER(paymentTime) 
+   </select>
+   
+   
+   <!-- 当天的销售额 -->
+    <select id="queryDayMoney" resultType="BigDecimal">
+    	select  IFNULL(SUM(orderAmountTotal),0) as price from tb_order 
+	WHERE DATE_FORMAT(paymentTime,'%y-%M-%d')=DATE_FORMAT(CURDATE(),'%y-%M-%d')
+	and  orderStatus in('已发货','已签收','已付款','交易成功')
+   </select>
+     <!-- 当月的销售额 -->
+    <select id="queryMonthMoney" resultType="BigDecimal">
+    	select  IFNULL(SUM(orderAmountTotal),0) as price from tb_order 
+	WHERE DATE_FORMAT(paymentTime,'%y-%M')=DATE_FORMAT(CURDATE(),'%y-%M')
+	and  orderStatus in('已发货','已签收','已付款','交易成功')
+   </select>
+     <!-- 本周的销售额 -->
+    <select id="queryWeekMoney" resultType="BigDecimal">
+    	select  IFNULL(SUM(orderAmountTotal),0) as price from tb_order 
+	WHERE   orderStatus in('已发货','已签收','已付款','交易成功')
+	AND WEEK(paymentTime)=WEEK(CURDATE())
+   </select>
+   
+   <!-- 当年本季度的销售额 -->
+    <select id="queryQuarterMoney" resultType="BigDecimal">
+    	select  IFNULL(SUM(orderAmountTotal),0) as price from tb_order 
+	WHERE QUARTER(newDate)=QUARTER(CURDATE())
+	and  orderStatus in('已发货','已签收','已付款','交易成功')
+	AND DATE_FORMAT(paymentTime,'%y')=DATE_FORMAT(CURDATE(),'%y')
+   </select>
+   
+   <!-- 查询当月的消费前三名-->
+   <select id="queryMonthConsume3" resultType="map">
+   select IFNULL(SUM(orderAmountTotal),0) as price,c.name  from  tb_order o
+	LEFT JOIN tb_customer c
+	ON o.customerId=c.id
+	where o.orderStatus  in('已发货','已签收','已付款','交易成功')
+	and DATE_FORMAT(o.paymentTime,'%y-%M')=DATE_FORMAT(CURDATE(),'%y-%M')
+	GROUP BY o.customerId
+	order by price DESC
+	LIMIT 0,3
+   </select>
+   
+ <!-- 查询当前季度的消费前三名 -->
+   <select id="queryQuarterConsume3" resultType="map">
+   select IFNULL(SUM(orderAmountTotal),0) as price,c.name  from  tb_order o
+	LEFT JOIN tb_customer c
+	ON o.customerId=c.id
+	where o.orderStatus  in('已发货','已签收','已付款','交易成功')
+	and QUARTER(o.paymentTime)=QUARTER(CURDATE())
+	GROUP BY o.customerId
+	order by price DESC
+	LIMIT 0,3
+   </select>
+   
+   <!-- 查询当年的消费前三名 -->
+   <select id="queryYearConsume3" resultType="map">
+   select IFNULL(SUM(orderAmountTotal),0) as price,c.name  from  tb_order o
+	LEFT JOIN tb_customer c
+	ON o.customerId=c.id
+	where o.orderStatus  in('已发货','已签收','已付款','交易成功')
+	and DATE_FORMAT(o.paymentTime,'%y')=DATE_FORMAT(CURDATE(),'%y')
+	GROUP BY o.customerId
+	order by price DESC
+	LIMIT 0,3
+   </select>
+   
+   <!-- 查询本月销售最多的物品，前三名 -->
+   <select id="queryMonthProductStar" resultType="map">
+	   SELECT  sum(d.OrderDetailNumber) AS count ,i.infoName  from  
+		tb_order_detail d  
+		LEFT JOIN  
+		tb_order o
+		ON o.id = d.orderId
+		LEFT JOIN tb_product_info i
+		ON d.productId = i.id
+		LEFT JOIN tb_product_type t
+		ON i.typeId=t.id
+		WHERE d.detailStatus in ('已下单','已成交')
+		and DATE_FORMAT(o.paymentTime,'%y-%M')=DATE_FORMAT(CURDATE(),'%y-%M')
+		GROUP BY d.productId
+		ORDER BY count desc
+		LIMIT 0,3
+   </select>
+    <!-- 查询季度销售最多的物品，前三名 -->
+   <select id="queryQuarterProductStar" resultType="map">
+	   SELECT sum(d.OrderDetailNumber) AS count ,i.infoName  from  
+		tb_order_detail d  
+		LEFT JOIN  
+		tb_order o
+		ON o.id = d.orderId
+		LEFT JOIN tb_product_info i
+		ON d.productId = i.id
+		LEFT JOIN tb_product_type t
+		ON i.typeId=t.id
+		WHERE d.detailStatus in ('已下单','已成交')
+		and QUARTER(o.paymentTime)=QUARTER(CURDATE())
+		GROUP BY d.productId
+		ORDER BY count desc
+		LIMIT 0,3
+   </select> 
+   <!-- 查询本年销售最多的物品，前三名 -->
+   <select id="queryYearProductStar" resultType="map">
+	   SELECT  sum(d.OrderDetailNumber)  AS count ,i.infoName  from  
+		tb_order_detail d  
+		LEFT JOIN  
+		tb_order o
+		ON o.id = d.orderId
+		LEFT JOIN tb_product_info i
+		ON d.productId = i.id
+		LEFT JOIN tb_product_type t
+		ON i.typeId=t.id
+		WHERE d.detailStatus in ('已下单','已成交')
+		and DATE_FORMAT(o.paymentTime,'%y')=DATE_FORMAT(CURDATE(),'%y')
+		GROUP BY d.productId
+		ORDER BY count desc
+		LIMIT 0,3
+   </select>
+   
+   
+</mapper>

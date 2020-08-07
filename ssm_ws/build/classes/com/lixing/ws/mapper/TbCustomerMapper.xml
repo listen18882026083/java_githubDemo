@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lixing.ws.mapper.TbCustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.lixing.ws.pojo.TbCustomer" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="wechat" property="wechat" jdbcType="VARCHAR" />
+    <result column="wechat_netname" property="wechatNetname" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="qq_netname" property="qqNetname" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="DOUBLE" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="hobby" property="hobby" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
+    <result column="updte_date" property="updteDate" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="relation" property="relation" jdbcType="VARCHAR" />
+    <result column="urgent_phone" property="urgentPhone" jdbcType="VARCHAR" />
+    <result column="urgent_name" property="urgentName" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="believer" property="believer" jdbcType="VARCHAR" />
+    <result column="recommender" property="recommender" jdbcType="VARCHAR" />
+    <result column="inputer" property="inputer" jdbcType="VARCHAR" />
+    <result column="card_id" property="cardId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, phone, wechat, wechat_netname, qq, qq_netname, address, sex, height, weight, 
+    hobby, email, pic, grade, updte_date, type, province, city, relation, urgent_phone, 
+    urgent_name, area, believer, recommender, inputer, card_id, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lixing.ws.pojo.TbCustomerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_customer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_customer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lixing.ws.pojo.TbCustomerExample" >
+    delete from tb_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lixing.ws.pojo.TbCustomer" >
+    insert into tb_customer (id, name, phone, 
+      wechat, wechat_netname, qq, 
+      qq_netname, address, sex, 
+      height, weight, hobby, 
+      email, pic, grade, 
+      updte_date, type, province, 
+      city, relation, urgent_phone, 
+      urgent_name, area, believer, 
+      recommender, inputer, card_id, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{wechat,jdbcType=VARCHAR}, #{wechatNetname,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
+      #{qqNetname,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{height,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, #{hobby,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, 
+      #{updteDate,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{relation,jdbcType=VARCHAR}, #{urgentPhone,jdbcType=VARCHAR}, 
+      #{urgentName,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{believer,jdbcType=VARCHAR}, 
+      #{recommender,jdbcType=VARCHAR}, #{inputer,jdbcType=VARCHAR}, #{cardId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lixing.ws.pojo.TbCustomer" >
+    insert into tb_customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="wechat != null" >
+        wechat,
+      </if>
+      <if test="wechatNetname != null" >
+        wechat_netname,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="qqNetname != null" >
+        qq_netname,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="hobby != null" >
+        hobby,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="updteDate != null" >
+        updte_date,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="relation != null" >
+        relation,
+      </if>
+      <if test="urgentPhone != null" >
+        urgent_phone,
+      </if>
+      <if test="urgentName != null" >
+        urgent_name,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="believer != null" >
+        believer,
+      </if>
+      <if test="recommender != null" >
+        recommender,
+      </if>
+      <if test="inputer != null" >
+        inputer,
+      </if>
+      <if test="cardId != null" >
+        card_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatNetname != null" >
+        #{wechatNetname,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="qqNetname != null" >
+        #{qqNetname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="hobby != null" >
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="updteDate != null" >
+        #{updteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null" >
+        #{relation,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentPhone != null" >
+        #{urgentPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentName != null" >
+        #{urgentName,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="believer != null" >
+        #{believer,jdbcType=VARCHAR},
+      </if>
+      <if test="recommender != null" >
+        #{recommender,jdbcType=VARCHAR},
+      </if>
+      <if test="inputer != null" >
+        #{inputer,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lixing.ws.pojo.TbCustomerExample" resultType="java.lang.Integer" >
+    select count(*) from tb_customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_customer
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechat != null" >
+        wechat = #{record.wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechatNetname != null" >
+        wechat_netname = #{record.wechatNetname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null" >
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qqNetname != null" >
+        qq_netname = #{record.qqNetname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.height != null" >
+        height = #{record.height,jdbcType=DOUBLE},
+      </if>
+      <if test="record.weight != null" >
+        weight = #{record.weight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.hobby != null" >
+        hobby = #{record.hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pic != null" >
+        pic = #{record.pic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grade != null" >
+        grade = #{record.grade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updteDate != null" >
+        updte_date = #{record.updteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relation != null" >
+        relation = #{record.relation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.urgentPhone != null" >
+        urgent_phone = #{record.urgentPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.urgentName != null" >
+        urgent_name = #{record.urgentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.believer != null" >
+        believer = #{record.believer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recommender != null" >
+        recommender = #{record.recommender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inputer != null" >
+        inputer = #{record.inputer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardId != null" >
+        card_id = #{record.cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_customer
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      wechat = #{record.wechat,jdbcType=VARCHAR},
+      wechat_netname = #{record.wechatNetname,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      qq_netname = #{record.qqNetname,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      height = #{record.height,jdbcType=DOUBLE},
+      weight = #{record.weight,jdbcType=DOUBLE},
+      hobby = #{record.hobby,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      pic = #{record.pic,jdbcType=VARCHAR},
+      grade = #{record.grade,jdbcType=VARCHAR},
+      updte_date = #{record.updteDate,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      relation = #{record.relation,jdbcType=VARCHAR},
+      urgent_phone = #{record.urgentPhone,jdbcType=VARCHAR},
+      urgent_name = #{record.urgentName,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      believer = #{record.believer,jdbcType=VARCHAR},
+      recommender = #{record.recommender,jdbcType=VARCHAR},
+      inputer = #{record.inputer,jdbcType=VARCHAR},
+      card_id = #{record.cardId,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lixing.ws.pojo.TbCustomer" >
+    update tb_customer
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null" >
+        wechat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatNetname != null" >
+        wechat_netname = #{wechatNetname,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="qqNetname != null" >
+        qq_netname = #{qqNetname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="hobby != null" >
+        hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="updteDate != null" >
+        updte_date = #{updteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="relation != null" >
+        relation = #{relation,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentPhone != null" >
+        urgent_phone = #{urgentPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentName != null" >
+        urgent_name = #{urgentName,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="believer != null" >
+        believer = #{believer,jdbcType=VARCHAR},
+      </if>
+      <if test="recommender != null" >
+        recommender = #{recommender,jdbcType=VARCHAR},
+      </if>
+      <if test="inputer != null" >
+        inputer = #{inputer,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null" >
+        card_id = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lixing.ws.pojo.TbCustomer" >
+    update tb_customer
+    set name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      wechat = #{wechat,jdbcType=VARCHAR},
+      wechat_netname = #{wechatNetname,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      qq_netname = #{qqNetname,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      height = #{height,jdbcType=DOUBLE},
+      weight = #{weight,jdbcType=DOUBLE},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      updte_date = #{updteDate,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      relation = #{relation,jdbcType=VARCHAR},
+      urgent_phone = #{urgentPhone,jdbcType=VARCHAR},
+      urgent_name = #{urgentName,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      believer = #{believer,jdbcType=VARCHAR},
+      recommender = #{recommender,jdbcType=VARCHAR},
+      inputer = #{inputer,jdbcType=VARCHAR},
+      card_id = #{cardId,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <!-- 添加sql语句 -->
+   <select id="queryList" parameterType="com.lixing.ws.pojo.TbCustomerExample" resultMap="BaseResultMap">
+   select * from tb_customer
+   <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    order by  id desc
+ 	<if test="page!=null and limit!=null">
+  		limit #{page},#{limit}
+  	</if>
+   </select>
+   
+   <!-- 客户统计查询语句 -->
+    <select id="statisGrade"  resultType="map">
+    	select   count(grade) as grade  from tb_customer
+		GROUP BY grade ORDER BY grade 
+    </select>
+</mapper>

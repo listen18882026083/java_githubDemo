@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- 读取jdbc配置文件 -->
+	<context:property-placeholder location="classpath:config/jdbc.properties"/>
+	<!-- 配置C3P0连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driverName}"></property>
+		<property name="jdbcUrl" value="${jdbc.url}"></property>
+		<property name="user" value="${jdbc.name}"></property>
+		<property name="password" value="${jdbc.pwd}"></property>
+	</bean>
+	
+	<!-- 配置Sqlsession工厂 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:config/SqlMapConfig.xml" />
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- mapper动态代理扫描配置 -->
+		<bean  class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+				<property name="basePackage" value="com.lixing.ws.mapper"></property>
+		</bean>
+		
+	<!-- 配置扫描Services -->
+	<context:component-scan base-package="com.lixing.ws.service"></context:component-scan>
+	
+	<!-- 配置事务模板 -->
+	<bean id="transactionManager" 
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- 增强配置 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="dele*" propagation="REQUIRED"/>
+			<tx:method name="query*" propagation="REQUIRED"/>
+			<tx:method name="select*" propagation="REQUIRED"/>
+			<tx:method name="insert*" propagation="REQUIRED"/>
+		</tx:attributes>
+	</tx:advice>
+	<!-- AOP配置 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* com.lixing.ws.service.impl.*.*(..))" 
+		id="bankPointcut"/>
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="bankPointcut"/>
+	</aop:config>
+</beans>

@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lixing.ws.mapper.TbOrderDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.lixing.ws.pojo.TbOrderDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="productId" property="productid" jdbcType="INTEGER" />
+    <result column="orderId" property="orderid" jdbcType="INTEGER" />
+    <result column="producName" property="producname" jdbcType="VARCHAR" />
+    <result column="productPrice" property="productprice" jdbcType="DECIMAL" />
+    <result column="discountRate" property="discountrate" jdbcType="DECIMAL" />
+    <result column="OrderDetailNumber" property="orderdetailnumber" jdbcType="INTEGER" />
+    <result column="subtotal" property="subtotal" jdbcType="DECIMAL" />
+    <result column="productMarque" property="productmarque" jdbcType="VARCHAR" />
+    <result column="returnNumber" property="returnnumber" jdbcType="VARCHAR" />
+    <result column="exchangeNumber" property="exchangenumber" jdbcType="VARCHAR" />
+    <result column="orderlogisticsNumberv" property="orderlogisticsnumberv" jdbcType="VARCHAR" />
+    <result column="replacementReason" property="replacementreason" jdbcType="VARCHAR" />
+    <result column="detailStatus" property="detailstatus" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, productId, orderId, producName, productPrice, discountRate, OrderDetailNumber, 
+    subtotal, productMarque, returnNumber, exchangeNumber, orderlogisticsNumberv, replacementReason, 
+    detailStatus, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lixing.ws.pojo.TbOrderDetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_order_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_order_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lixing.ws.pojo.TbOrderDetailExample" >
+    delete from tb_order_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lixing.ws.pojo.TbOrderDetail" >
+    insert into tb_order_detail (id, productId, orderId, 
+      producName, productPrice, discountRate, 
+      OrderDetailNumber, subtotal, productMarque, 
+      returnNumber, exchangeNumber, orderlogisticsNumberv, 
+      replacementReason, detailStatus, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{productid,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, 
+      #{producname,jdbcType=VARCHAR}, #{productprice,jdbcType=DECIMAL}, #{discountrate,jdbcType=DECIMAL}, 
+      #{orderdetailnumber,jdbcType=INTEGER}, #{subtotal,jdbcType=DECIMAL}, #{productmarque,jdbcType=VARCHAR}, 
+      #{returnnumber,jdbcType=VARCHAR}, #{exchangenumber,jdbcType=VARCHAR}, #{orderlogisticsnumberv,jdbcType=VARCHAR}, 
+      #{replacementreason,jdbcType=VARCHAR}, #{detailstatus,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lixing.ws.pojo.TbOrderDetail" >
+    insert into tb_order_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productid != null" >
+        productId,
+      </if>
+      <if test="orderid != null" >
+        orderId,
+      </if>
+      <if test="producname != null" >
+        producName,
+      </if>
+      <if test="productprice != null" >
+        productPrice,
+      </if>
+      <if test="discountrate != null" >
+        discountRate,
+      </if>
+      <if test="orderdetailnumber != null" >
+        OrderDetailNumber,
+      </if>
+      <if test="subtotal != null" >
+        subtotal,
+      </if>
+      <if test="productmarque != null" >
+        productMarque,
+      </if>
+      <if test="returnnumber != null" >
+        returnNumber,
+      </if>
+      <if test="exchangenumber != null" >
+        exchangeNumber,
+      </if>
+      <if test="orderlogisticsnumberv != null" >
+        orderlogisticsNumberv,
+      </if>
+      <if test="replacementreason != null" >
+        replacementReason,
+      </if>
+      <if test="detailstatus != null" >
+        detailStatus,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productid != null" >
+        #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="producname != null" >
+        #{producname,jdbcType=VARCHAR},
+      </if>
+      <if test="productprice != null" >
+        #{productprice,jdbcType=DECIMAL},
+      </if>
+      <if test="discountrate != null" >
+        #{discountrate,jdbcType=DECIMAL},
+      </if>
+      <if test="orderdetailnumber != null" >
+        #{orderdetailnumber,jdbcType=INTEGER},
+      </if>
+      <if test="subtotal != null" >
+        #{subtotal,jdbcType=DECIMAL},
+      </if>
+      <if test="productmarque != null" >
+        #{productmarque,jdbcType=VARCHAR},
+      </if>
+      <if test="returnnumber != null" >
+        #{returnnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangenumber != null" >
+        #{exchangenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderlogisticsnumberv != null" >
+        #{orderlogisticsnumberv,jdbcType=VARCHAR},
+      </if>
+      <if test="replacementreason != null" >
+        #{replacementreason,jdbcType=VARCHAR},
+      </if>
+      <if test="detailstatus != null" >
+        #{detailstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lixing.ws.pojo.TbOrderDetailExample" resultType="java.lang.Integer" >
+    select count(*) from tb_order_detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_order_detail
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.productid != null" >
+        productId = #{record.productid,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderid != null" >
+        orderId = #{record.orderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.producname != null" >
+        producName = #{record.producname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productprice != null" >
+        productPrice = #{record.productprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.discountrate != null" >
+        discountRate = #{record.discountrate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orderdetailnumber != null" >
+        OrderDetailNumber = #{record.orderdetailnumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.subtotal != null" >
+        subtotal = #{record.subtotal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.productmarque != null" >
+        productMarque = #{record.productmarque,jdbcType=VARCHAR},
+      </if>
+      <if test="record.returnnumber != null" >
+        returnNumber = #{record.returnnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exchangenumber != null" >
+        exchangeNumber = #{record.exchangenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderlogisticsnumberv != null" >
+        orderlogisticsNumberv = #{record.orderlogisticsnumberv,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replacementreason != null" >
+        replacementReason = #{record.replacementreason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailstatus != null" >
+        detailStatus = #{record.detailstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_order_detail
+    set id = #{record.id,jdbcType=INTEGER},
+      productId = #{record.productid,jdbcType=INTEGER},
+      orderId = #{record.orderid,jdbcType=INTEGER},
+      producName = #{record.producname,jdbcType=VARCHAR},
+      productPrice = #{record.productprice,jdbcType=DECIMAL},
+      discountRate = #{record.discountrate,jdbcType=DECIMAL},
+      OrderDetailNumber = #{record.orderdetailnumber,jdbcType=INTEGER},
+      subtotal = #{record.subtotal,jdbcType=DECIMAL},
+      productMarque = #{record.productmarque,jdbcType=VARCHAR},
+      returnNumber = #{record.returnnumber,jdbcType=VARCHAR},
+      exchangeNumber = #{record.exchangenumber,jdbcType=VARCHAR},
+      orderlogisticsNumberv = #{record.orderlogisticsnumberv,jdbcType=VARCHAR},
+      replacementReason = #{record.replacementreason,jdbcType=VARCHAR},
+      detailStatus = #{record.detailstatus,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lixing.ws.pojo.TbOrderDetail" >
+    update tb_order_detail
+    <set >
+      <if test="productid != null" >
+        productId = #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null" >
+        orderId = #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="producname != null" >
+        producName = #{producname,jdbcType=VARCHAR},
+      </if>
+      <if test="productprice != null" >
+        productPrice = #{productprice,jdbcType=DECIMAL},
+      </if>
+      <if test="discountrate != null" >
+        discountRate = #{discountrate,jdbcType=DECIMAL},
+      </if>
+      <if test="orderdetailnumber != null" >
+        OrderDetailNumber = #{orderdetailnumber,jdbcType=INTEGER},
+      </if>
+      <if test="subtotal != null" >
+        subtotal = #{subtotal,jdbcType=DECIMAL},
+      </if>
+      <if test="productmarque != null" >
+        productMarque = #{productmarque,jdbcType=VARCHAR},
+      </if>
+      <if test="returnnumber != null" >
+        returnNumber = #{returnnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="exchangenumber != null" >
+        exchangeNumber = #{exchangenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="orderlogisticsnumberv != null" >
+        orderlogisticsNumberv = #{orderlogisticsnumberv,jdbcType=VARCHAR},
+      </if>
+      <if test="replacementreason != null" >
+        replacementReason = #{replacementreason,jdbcType=VARCHAR},
+      </if>
+      <if test="detailstatus != null" >
+        detailStatus = #{detailstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lixing.ws.pojo.TbOrderDetail" >
+    update tb_order_detail
+    set productId = #{productid,jdbcType=INTEGER},
+      orderId = #{orderid,jdbcType=INTEGER},
+      producName = #{producname,jdbcType=VARCHAR},
+      productPrice = #{productprice,jdbcType=DECIMAL},
+      discountRate = #{discountrate,jdbcType=DECIMAL},
+      OrderDetailNumber = #{orderdetailnumber,jdbcType=INTEGER},
+      subtotal = #{subtotal,jdbcType=DECIMAL},
+      productMarque = #{productmarque,jdbcType=VARCHAR},
+      returnNumber = #{returnnumber,jdbcType=VARCHAR},
+      exchangeNumber = #{exchangenumber,jdbcType=VARCHAR},
+      orderlogisticsNumberv = #{orderlogisticsnumberv,jdbcType=VARCHAR},
+      replacementReason = #{replacementreason,jdbcType=VARCHAR},
+      detailStatus = #{detailstatus,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+ <select id="queryOrderDetailList"  parameterType="com.lixing.ws.pojo.TbOrderDetailExample" resultType="com.lixing.ws.pojo.TbOrderDetail">
+  	select * from tb_order_detail 
+  	 <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  	order by  id desc
+
+  	<if test="page!=null and limit!=null">
+  	limit #{page},#{limit}
+  	</if>
+  
+  </select>
+</mapper>

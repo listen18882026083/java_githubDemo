@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lixing.ws.mapper.TbProductInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.lixing.ws.pojo.TbProductInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="typeId" property="typeid" jdbcType="INTEGER" />
+    <result column="infoNumber" property="infonumber" jdbcType="VARCHAR" />
+    <result column="infoName" property="infoname" jdbcType="VARCHAR" />
+    <result column="infoCost" property="infocost" jdbcType="DECIMAL" />
+    <result column="infoPrice" property="infoprice" jdbcType="DECIMAL" />
+    <result column="infoDiscount" property="infodiscount" jdbcType="DECIMAL" />
+    <result column="infoPic" property="infopic" jdbcType="VARCHAR" />
+    <result column="infoSpec" property="infospec" jdbcType="VARCHAR" />
+    <result column="infoOrigin" property="infoorigin" jdbcType="VARCHAR" />
+    <result column="infoBrand" property="infobrand" jdbcType="VARCHAR" />
+    <result column="infoHeat" property="infoheat" jdbcType="VARCHAR" />
+    <result column="intendedFor" property="intendedfor" jdbcType="VARCHAR" />
+    <result column="infoStock" property="infostock" jdbcType="INTEGER" />
+    <result column="infoPostage" property="infopostage" jdbcType="DECIMAL" />
+    <result column="updateTime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, typeId, infoNumber, infoName, infoCost, infoPrice, infoDiscount, infoPic, infoSpec, 
+    infoOrigin, infoBrand, infoHeat, intendedFor, infoStock, infoPostage, updateTime, 
+    remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lixing.ws.pojo.TbProductInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_product_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_product_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_product_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lixing.ws.pojo.TbProductInfoExample" >
+    delete from tb_product_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lixing.ws.pojo.TbProductInfo" >
+    insert into tb_product_info (id, typeId, infoNumber, 
+      infoName, infoCost, infoPrice, 
+      infoDiscount, infoPic, infoSpec, 
+      infoOrigin, infoBrand, infoHeat, 
+      intendedFor, infoStock, infoPostage, 
+      updateTime, remark)
+    values (#{id,jdbcType=INTEGER}, #{typeid,jdbcType=INTEGER}, #{infonumber,jdbcType=VARCHAR}, 
+      #{infoname,jdbcType=VARCHAR}, #{infocost,jdbcType=DECIMAL}, #{infoprice,jdbcType=DECIMAL}, 
+      #{infodiscount,jdbcType=DECIMAL}, #{infopic,jdbcType=VARCHAR}, #{infospec,jdbcType=VARCHAR}, 
+      #{infoorigin,jdbcType=VARCHAR}, #{infobrand,jdbcType=VARCHAR}, #{infoheat,jdbcType=VARCHAR}, 
+      #{intendedfor,jdbcType=VARCHAR}, #{infostock,jdbcType=INTEGER}, #{infopostage,jdbcType=DECIMAL}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lixing.ws.pojo.TbProductInfo" >
+    insert into tb_product_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="typeid != null" >
+        typeId,
+      </if>
+      <if test="infonumber != null" >
+        infoNumber,
+      </if>
+      <if test="infoname != null" >
+        infoName,
+      </if>
+      <if test="infocost != null" >
+        infoCost,
+      </if>
+      <if test="infoprice != null" >
+        infoPrice,
+      </if>
+      <if test="infodiscount != null" >
+        infoDiscount,
+      </if>
+      <if test="infopic != null" >
+        infoPic,
+      </if>
+      <if test="infospec != null" >
+        infoSpec,
+      </if>
+      <if test="infoorigin != null" >
+        infoOrigin,
+      </if>
+      <if test="infobrand != null" >
+        infoBrand,
+      </if>
+      <if test="infoheat != null" >
+        infoHeat,
+      </if>
+      <if test="intendedfor != null" >
+        intendedFor,
+      </if>
+      <if test="infostock != null" >
+        infoStock,
+      </if>
+      <if test="infopostage != null" >
+        infoPostage,
+      </if>
+      <if test="updatetime != null" >
+        updateTime,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="infonumber != null" >
+        #{infonumber,jdbcType=VARCHAR},
+      </if>
+      <if test="infoname != null" >
+        #{infoname,jdbcType=VARCHAR},
+      </if>
+      <if test="infocost != null" >
+        #{infocost,jdbcType=DECIMAL},
+      </if>
+      <if test="infoprice != null" >
+        #{infoprice,jdbcType=DECIMAL},
+      </if>
+      <if test="infodiscount != null" >
+        #{infodiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="infopic != null" >
+        #{infopic,jdbcType=VARCHAR},
+      </if>
+      <if test="infospec != null" >
+        #{infospec,jdbcType=VARCHAR},
+      </if>
+      <if test="infoorigin != null" >
+        #{infoorigin,jdbcType=VARCHAR},
+      </if>
+      <if test="infobrand != null" >
+        #{infobrand,jdbcType=VARCHAR},
+      </if>
+      <if test="infoheat != null" >
+        #{infoheat,jdbcType=VARCHAR},
+      </if>
+      <if test="intendedfor != null" >
+        #{intendedfor,jdbcType=VARCHAR},
+      </if>
+      <if test="infostock != null" >
+        #{infostock,jdbcType=INTEGER},
+      </if>
+      <if test="infopostage != null" >
+        #{infopostage,jdbcType=DECIMAL},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lixing.ws.pojo.TbProductInfoExample" resultType="java.lang.Integer" >
+    select count(*) from tb_product_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_product_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeid != null" >
+        typeId = #{record.typeid,jdbcType=INTEGER},
+      </if>
+      <if test="record.infonumber != null" >
+        infoNumber = #{record.infonumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infoname != null" >
+        infoName = #{record.infoname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infocost != null" >
+        infoCost = #{record.infocost,jdbcType=DECIMAL},
+      </if>
+      <if test="record.infoprice != null" >
+        infoPrice = #{record.infoprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.infodiscount != null" >
+        infoDiscount = #{record.infodiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.infopic != null" >
+        infoPic = #{record.infopic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infospec != null" >
+        infoSpec = #{record.infospec,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infoorigin != null" >
+        infoOrigin = #{record.infoorigin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infobrand != null" >
+        infoBrand = #{record.infobrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infoheat != null" >
+        infoHeat = #{record.infoheat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intendedfor != null" >
+        intendedFor = #{record.intendedfor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infostock != null" >
+        infoStock = #{record.infostock,jdbcType=INTEGER},
+      </if>
+      <if test="record.infopostage != null" >
+        infoPostage = #{record.infopostage,jdbcType=DECIMAL},
+      </if>
+      <if test="record.updatetime != null" >
+        updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_product_info
+    set id = #{record.id,jdbcType=INTEGER},
+      typeId = #{record.typeid,jdbcType=INTEGER},
+      infoNumber = #{record.infonumber,jdbcType=VARCHAR},
+      infoName = #{record.infoname,jdbcType=VARCHAR},
+      infoCost = #{record.infocost,jdbcType=DECIMAL},
+      infoPrice = #{record.infoprice,jdbcType=DECIMAL},
+      infoDiscount = #{record.infodiscount,jdbcType=DECIMAL},
+      infoPic = #{record.infopic,jdbcType=VARCHAR},
+      infoSpec = #{record.infospec,jdbcType=VARCHAR},
+      infoOrigin = #{record.infoorigin,jdbcType=VARCHAR},
+      infoBrand = #{record.infobrand,jdbcType=VARCHAR},
+      infoHeat = #{record.infoheat,jdbcType=VARCHAR},
+      intendedFor = #{record.intendedfor,jdbcType=VARCHAR},
+      infoStock = #{record.infostock,jdbcType=INTEGER},
+      infoPostage = #{record.infopostage,jdbcType=DECIMAL},
+      updateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lixing.ws.pojo.TbProductInfo" >
+    update tb_product_info
+    <set >
+      <if test="typeid != null" >
+        typeId = #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="infonumber != null" >
+        infoNumber = #{infonumber,jdbcType=VARCHAR},
+      </if>
+      <if test="infoname != null" >
+        infoName = #{infoname,jdbcType=VARCHAR},
+      </if>
+      <if test="infocost != null" >
+        infoCost = #{infocost,jdbcType=DECIMAL},
+      </if>
+      <if test="infoprice != null" >
+        infoPrice = #{infoprice,jdbcType=DECIMAL},
+      </if>
+      <if test="infodiscount != null" >
+        infoDiscount = #{infodiscount,jdbcType=DECIMAL},
+      </if>
+      <if test="infopic != null" >
+        infoPic = #{infopic,jdbcType=VARCHAR},
+      </if>
+      <if test="infospec != null" >
+        infoSpec = #{infospec,jdbcType=VARCHAR},
+      </if>
+      <if test="infoorigin != null" >
+        infoOrigin = #{infoorigin,jdbcType=VARCHAR},
+      </if>
+      <if test="infobrand != null" >
+        infoBrand = #{infobrand,jdbcType=VARCHAR},
+      </if>
+      <if test="infoheat != null" >
+        infoHeat = #{infoheat,jdbcType=VARCHAR},
+      </if>
+      <if test="intendedfor != null" >
+        intendedFor = #{intendedfor,jdbcType=VARCHAR},
+      </if>
+      <if test="infostock != null" >
+        infoStock = #{infostock,jdbcType=INTEGER},
+      </if>
+      <if test="infopostage != null" >
+        infoPostage = #{infopostage,jdbcType=DECIMAL},
+      </if>
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lixing.ws.pojo.TbProductInfo" >
+    update tb_product_info
+    set typeId = #{typeid,jdbcType=INTEGER},
+      infoNumber = #{infonumber,jdbcType=VARCHAR},
+      infoName = #{infoname,jdbcType=VARCHAR},
+      infoCost = #{infocost,jdbcType=DECIMAL},
+      infoPrice = #{infoprice,jdbcType=DECIMAL},
+      infoDiscount = #{infodiscount,jdbcType=DECIMAL},
+      infoPic = #{infopic,jdbcType=VARCHAR},
+      infoSpec = #{infospec,jdbcType=VARCHAR},
+      infoOrigin = #{infoorigin,jdbcType=VARCHAR},
+      infoBrand = #{infobrand,jdbcType=VARCHAR},
+      infoHeat = #{infoheat,jdbcType=VARCHAR},
+      intendedFor = #{intendedfor,jdbcType=VARCHAR},
+      infoStock = #{infostock,jdbcType=INTEGER},
+      infoPostage = #{infopostage,jdbcType=DECIMAL},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+   <!-- 添加sql语句 -->
+  
+  <select id="queryList"  parameterType="com.lixing.ws.pojo.TbProductInfoExample" resultMap="BaseResultMap">
+	  select i.id ,t.`name` as remark,i.infoName ,i.infoCost,i.infoBrand,
+	  i.intendedFor,i.infoOrigin,i.infoHeat,i.infoStock,i.infoPostage,i.infoPrice, 
+	  i.infoDiscount
+		from tb_product_info as i
+		LEFT JOIN
+		tb_product_type as t
+		ON
+		i.typeId=t.id
+	  	 <if test="_parameter != null" >
+	      <include refid="Example_Where_Clause" />
+	    </if>
+			 order by i.id
+	
+	  	<if test="page!=null and limit!=null">
+	  		limit #{page},#{limit}
+	  	</if>
+  
+  </select>
+</mapper>
